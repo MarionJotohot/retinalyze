@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { FaRegUser } from "react-icons/fa";
 import { useState } from "react";
-import InputField from "../../components/InputField";
+import InputField from "../../components/commons/InputField";
 import { registerInputs } from "../../lib/data";
 
 const Register = () => {

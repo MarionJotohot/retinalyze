@@ -1,9 +1,9 @@
-import Sidebar from "../../components/Sidebar";
+import Sidebar from "../../components/navigations/Sidebar";
 import { FaUpload } from "react-icons/fa";
 import { FaUserInjured } from "react-icons/fa";
 import { LuScanEye } from "react-icons/lu";
 import { useState } from "react";
-import InputField from "../../components/InputField";
+import InputField from "../../components/commons/InputField";
 import { addPatientInputs } from "../../lib/data";
 
 const AddPatient = () => {

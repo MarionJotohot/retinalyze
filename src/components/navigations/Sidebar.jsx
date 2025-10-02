@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate, useLocation, NavLink } from "react-router-dom";
+import { useNavigate, useLocation, NavLink } from "react-router";
 import { FiMenu, FiX } from "react-icons/fi";
 import { RiLogoutCircleLine } from "react-icons/ri";
-import Modal from "./Modal";
+import Modal from "../commons/Modal";
 import UserInfo from "./UserInfo";
-import { navItems } from "../lib/data";
+import { navItems } from "../../lib/data";
 
 const Sidebar = () => {
   const modalRef = useRef(null);

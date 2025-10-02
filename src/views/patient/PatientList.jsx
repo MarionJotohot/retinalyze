@@ -1,9 +1,9 @@
-import Sidebar from "../../components/Sidebar";
+import Sidebar from "../../components/navigations/Sidebar";
 import { CiSearch } from "react-icons/ci";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { FaRegEdit } from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
-import ResultModal from "./ResultModal";
+import ResultModal from "../../components/commons/ResultModal";
 import { useState, useRef } from "react";
 import { patients } from "../../lib/data";
 

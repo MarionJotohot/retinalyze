@@ -1,5 +1,5 @@
-import Sidebar from "../../components/Sidebar";
-import { Link } from "react-router-dom";
+import Sidebar from "../../components/navigations/Sidebar";
+import { Link } from "react-router";
 import DashCard from "./DashCard";
 import PatientActivity from "./PatientActivity";
 

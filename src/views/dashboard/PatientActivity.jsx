@@ -1,4 +1,4 @@
-import ResultModal from "../Patient/ResultModal";
+import ResultModal from "../../components/commons/ResultModal";
 import { useRef, useState } from "react";
 import { patients } from "../../lib/data";
 

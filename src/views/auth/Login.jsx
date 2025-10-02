@@ -1,11 +1,13 @@
+import { useAuthStore } from "../../stores/authStore";
+import InputField from "../../components/commons/InputField";
+import Modal from "../../components/commons/Modal";
 import { useState, useRef } from "react";
-import InputField from "../../components/InputField";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import Modal from "../../components/Modal";
+import { Link } from "react-router";
+import { useNavigate } from "react-router";
 import { loginInputs } from "../../lib/data";
 
 const Login = () => {
+  const login = useAuthStore((state) => state.login);
   const modalRef = useRef(null);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -22,8 +24,8 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { email, password } = formData;
-    // test logic
-    if (email === "test@example.com" && password === "password123") {
+    try {
+      await login(email, password);
       setModalData({
         isOpen: true,
         type: "success",
@@ -32,11 +34,11 @@ const Login = () => {
       setTimeout(() => {
         modalRef.current?.showModal();
       }, 0);
-    } else {
+    } catch (error) {
       setModalData({
         isOpen: true,
         type: "error",
-        message: "Invalid email or password.",
+        message: error.message || "Login failed.",
       });
       setTimeout(() => {
         modalRef.current?.showModal();
@@ -125,10 +127,10 @@ const Login = () => {
               </button>
             </form>
             <div className="mt-4 flex items-center justify-between text-sm">
-              <Link to="/register" className="text-blue-600 hover:underline">
-                Create an account
-              </Link>
-              <Link href="#" className="text-blue-600 hover:underline">
+              <Link
+                href="/forgot-password"
+                className="text-blue-600 hover:underline"
+              >
                 Forgot password?
               </Link>
             </div>

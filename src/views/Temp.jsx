@@ -1,5 +1,5 @@
 import { useState } from "react";
-import InputField from "../components/InputField";
+import InputField from "../components/commons/InputField";
 
 const Temp = () => {
   const [formData, setFormData] = useState({
