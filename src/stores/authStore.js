@@ -1,49 +1,78 @@
 import { create } from "zustand";
 import { supabase } from "../api/SupabaseClient";
 
-export const useAuthStore = create((set) => {
-  // --- setup subscription once ---
-  supabase.auth.onAuthStateChange((_event, session) => {
-    set({ user: session?.user ?? null });
-  });
-
-  return {
-    user: null,
-    setUser: (user) => set({ user }),
-
-    initialize: async () => {
-      // Run this on app start to load user from Supabase
-      const { data, error } = await supabase.auth.getUser();
-      if (!error && data.user) {
-        set({ user: data.user });
-      }
-    },
-
-    login: async (email, password) => {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-      if (error) throw error;
-      set({ user: data.user });
-      return data;
-    },
-
-    register: async (email, password) => {
-      const { data, error } = await supabase.auth.signUp({ email, password });
-      if (error) throw error;
-
-      // If email confirmation required, user might be null
-      if (data.user) {
-        set({ user: data.user });
-      }
-      return data;
-    },
-
-    logout: async () => {
-      const { error } = await supabase.auth.signOut();
-      if (error) throw error;
-      set({ user: null });
-    },
-  };
+// Listen to auth state changes and update the store accordingly
+supabase.auth.onAuthStateChange((_event, session) => {
+  useAuthStore.setState({ user: session?.user ?? null });
 });
+
+// Auth store using Zustand
+export const useAuthStore = create((set, get) => ({
+  user: null, // Supabase user object
+  userRole: null, // 'super_admin', 'doctor', 'patient'
+  profile: null, // Additional user data
+  isLoading: true, // Loading state
+
+  // Initialize method to fetch user and role
+  initialize: async () => {
+    set({ isLoading: true });
+    try {
+      const { data } = await supabase.auth.getUser();
+      if (data.user) {
+        // Fetch the user's role and profile from the profiles table
+        const { data: profileData } = await supabase
+          .from("profiles")
+          .select("*, role")
+          .eq("user_id", data.user.id)
+          .single();
+        // Update the store with user and role
+        set({
+          user: data.user,
+          userRole: profileData?.role,
+          profile: profileData,
+          isLoading: false,
+        });
+      } else {
+        set({ user: null, userRole: null, profile: null, isLoading: false });
+      }
+    } catch (error) {
+      console.error("Initialize error:", error);
+      set({ user: null, userRole: null, profile: null, isLoading: false });
+    }
+  },
+
+  // login method with role fetching
+  login: async (email, password) => {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    if (error) throw error;
+    // Fetch role after login
+    const { data: profileData } = await supabase
+      .from("profiles")
+      .select("*, role")
+      .eq("user_id", data.user.id)
+      .single();
+    // Update the store with user and role
+    set({
+      user: data.user,
+      userRole: profileData?.role,
+      profile: profileData,
+    });
+    return data;
+  },
+
+  // logout method
+  logout: async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) throw error;
+    // Clear the store on logout
+    set({ user: null, userRole: null, profile: null });
+  },
+
+  // Helper functions for role checking
+  isSuperAdmin: () => get().userRole === "super_admin",
+  isDoctor: () => get().userRole === "doctor",
+  isPatient: () => get().userRole === "patient",
+}));

@@ -1,3 +1,4 @@
+import { useAuthStore } from "../../stores/authStore";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation, NavLink } from "react-router";
 import { FiMenu, FiX } from "react-icons/fi";
@@ -7,15 +8,34 @@ import UserInfo from "./UserInfo";
 import { navItems } from "../../lib/data";
 
 const Sidebar = () => {
+  // Access the logout function from the store
+  const logout = useAuthStore((state) => state.logout);
+  // Ref for the modal
   const modalRef = useRef(null);
+  // Hook for navigation
   const navigate = useNavigate();
+  // Hook for location
   const location = useLocation();
+  // State to manage sidebar visibility on mobile
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  // Function to toggle sidebar
   const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
 
+  // Close sidebar on route change (for mobile)
   useEffect(() => {
     setIsSidebarOpen(false);
   }, [location.pathname]);
+
+  // Handle logout confirmation
+  const handleLogoutConfirm = async () => {
+    try {
+      await logout();
+      if (modalRef.current?.open) modalRef.current.close();
+      navigate("/auth/login");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
 
   return (
     <aside className="flex flex-col md:flex-row max-h-screen lg:fixed lg:h-screen overflow-y-auto">
@@ -100,11 +120,7 @@ const Sidebar = () => {
         message="Are you sure you want to log out?"
         confirmLabel="Yes, Logout"
         color="bg-red-500"
-        onConfirm={() => {
-          sessionStorage.clear();
-          if (modalRef.current?.open) modalRef.current.close();
-          setTimeout(() => navigate("/"), 100);
-        }}
+        onConfirm={handleLogoutConfirm}
       />
     </aside>
   );
