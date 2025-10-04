@@ -1,25 +1,25 @@
 import { useState } from "react";
 import { supabase } from "../../api/SupabaseClient";
+import { Link } from "react-router";
 
 const ForgotPassword = () => {
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState(""); // State for email input
+  const [message, setMessage] = useState(""); // State for success message
+  const [error, setError] = useState(""); // State for error message
+  const [loading, setLoading] = useState(false); // State for loading indicator
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
     setError("");
     setLoading(true);
-
+    // Request password reset via Supabase
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: "http://localhost:5173/reset-password",
-      // 👆 replace with your actual frontend URL
+      // environment variable for base URL
+      redirectTo: `${import.meta.env.VITE_APP_BASE_URL}/auth/reset-password`,
     });
-
     setLoading(false);
-
     if (error) {
       setError(error.message);
     } else {
@@ -28,8 +28,8 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6">
+    <div className="flex items-center justify-center">
+      <div className="w-full max-w-md">
         <h2 className="text-2xl font-bold text-center mb-4">Forgot Password</h2>
         <p className="text-gray-600 text-center mb-6">
           Enter your email and we'll send you a link to reset your password.
@@ -56,11 +56,19 @@ const ForgotPassword = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-500 text-white rounded-md py-2 hover:bg-blue-600 disabled:opacity-50"
+            className="w-full cursor-pointer tracking-tight bg-blue-500 text-white rounded-md py-2 hover:bg-blue-600 disabled:opacity-50"
           >
             {loading ? "Sending..." : "Send Reset Link"}
           </button>
         </form>
+
+        <Link to="/auth/login">
+          <div className="mt-5 border-t pt-4 border-gray-300">
+            <button className="w-full tracking-tight cursor-pointer bg-gray-700 text-white rounded-md py-2 hover:bg-gray-600 disabled:opacity-50">
+              Back to login
+            </button>
+          </div>
+        </Link>
 
         {message && <p className="text-green-600 text-sm mt-4">{message}</p>}
         {error && <p className="text-red-600 text-sm mt-4">{error}</p>}
