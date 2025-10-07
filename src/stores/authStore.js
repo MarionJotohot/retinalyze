@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { supabase } from "../api/SupabaseClient";
+import { supabase } from "../api/supabaseClient";
 
 // Listen to auth state changes and update the store accordingly
 supabase.auth.onAuthStateChange((_event, session) => {
@@ -33,9 +33,11 @@ export const useAuthStore = create((set, get) => ({
           isLoading: false,
         });
       } else {
+        // No user logged in
         set({ user: null, userRole: null, profile: null, isLoading: false });
       }
     } catch (error) {
+      // Handle errors appropriately
       console.error("Initialize error:", error);
       set({ user: null, userRole: null, profile: null, isLoading: false });
     }

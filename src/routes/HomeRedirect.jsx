@@ -1,9 +1,11 @@
-import { Navigate } from "react-router";
+import { redirectByRole } from "../utils/redirectByRole";
+import { useNavigate } from "react-router";
 import { useAuthStore } from "../stores/authStore";
 import { useEffect, useState } from "react";
 
 const HomeRedirect = () => {
   const { user, isLoading } = useAuthStore(); // Access user and loading state from the auth store
+  const navigate = useNavigate();
   const [loadingMessage, setLoadingMessage] = useState(
     // Initial loading message
     "Checking your session..."
@@ -20,6 +22,7 @@ const HomeRedirect = () => {
     }
   }, [isLoading, user]);
 
+  // Show loading spinner and message while checking authentication status
   if (isLoading)
     return (
       <div className="flex h-screen items-center justify-center bg-gray-100">
@@ -29,12 +32,8 @@ const HomeRedirect = () => {
         </div>
       </div>
     );
-  // Show loading spinner and message while checking authentication status
-  return user ? (
-    <Navigate to="/dashboard" replace />
-  ) : (
-    <Navigate to="/auth/login" replace />
-  );
+
+  return user ? redirectByRole(navigate) : navigate("/login");
 };
 
 export default HomeRedirect;

@@ -53,7 +53,7 @@ const ResetPassword = () => {
     } else {
       setMessage("Password updated successfully! Redirecting to login...");
       setTimeout(() => {
-        navigate("/auth/login");
+        navigate("/login");
       }, 2000);
     }
   };

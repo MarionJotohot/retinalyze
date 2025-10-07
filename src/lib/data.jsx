@@ -27,63 +27,25 @@ export const loginInputs = [
   },
 ];
 
-export const registerInputs = [
-  {
-    label: "Full Name",
-    id: "fullname",
-    type: "text",
-    placeholder: "Enter your name",
-    icon: FaRegUser,
-  },
-  {
-    label: "Specialization",
-    id: "specialization",
-    type: "text",
-    placeholder: "ex. Ophthalmologist",
-    icon: TbNurse,
-  },
-  {
-    label: "Email",
-    id: "emailAddress",
-    type: "email",
-    placeholder: "sample_email@gmail.com",
-    icon: MdOutlineAlternateEmail,
-  },
-  {
-    label: "Password",
-    id: "password",
-    type: "password",
-    placeholder: "Enter your password",
-    icon: MdOutlineRemoveRedEye,
-  },
-  {
-    label: "Confirm Password",
-    id: "confirmPassword",
-    type: "password",
-    placeholder: "Confirm your password",
-    icon: MdOutlineRemoveRedEye,
-  },
-];
-
-export const navItems = [
+export const adminNavItems = [
   {
     label: "Dashboard",
-    path: "/dashboard",
+    path: "/admin/dashboard",
     icon: BiSolidDashboard,
   },
   {
     label: "Add Patient",
-    path: "/add",
+    path: "/admin/add",
     icon: MdGroupAdd,
   },
   {
     label: "Patient List",
-    path: "/patients",
+    path: "/admin/patients",
     icon: FaUserInjured,
   },
   {
     label: "Profile",
-    path: "/profile",
+    path: "/admin/profile",
     icon: FaUserDoctor,
   },
 ];

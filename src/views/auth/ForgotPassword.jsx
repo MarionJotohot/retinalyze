@@ -35,6 +35,7 @@ const ForgotPassword = () => {
           Enter your email and we'll send you a link to reset your password.
         </p>
 
+        {/* forgot password form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label
@@ -52,7 +53,6 @@ const ForgotPassword = () => {
               required
             />
           </div>
-
           <button
             type="submit"
             disabled={loading}
@@ -62,7 +62,8 @@ const ForgotPassword = () => {
           </button>
         </form>
 
-        <Link to="/auth/login">
+        {/* Login link */}
+        <Link to="/login">
           <div className="mt-5 border-t pt-4 border-gray-300">
             <button className="w-full tracking-tight cursor-pointer bg-gray-700 text-white rounded-md py-2 hover:bg-gray-600 disabled:opacity-50">
               Back to login

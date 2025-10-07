@@ -13,23 +13,29 @@ import Profile from "../views/profile/Profile";
 const AppRoutes = () => {
   return (
     <Routes>
-      {/* Redirect root to appropriate home */}
+      {/* Redirect root to Login page */}
       <Route path="/" element={<HomeRedirect />} />
 
-      {/* Auth routes */}
-      <Route path="/auth" element={<AuthLayout />}>
-        <Route path="login" element={<Login />} />
-        <Route path="forgot-password" element={<ForgotPassword />} />
-        <Route path="reset-password" element={<ResetPassword />} />
+      {/* Public auth routes */}
+      <Route element={<AuthLayout />}>
+        <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
       </Route>
 
-      {/* Protected routes */}
-      <Route element={<ProtectedRoute />}>
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/patients" element={<PatientList />} />
-        <Route path="/add" element={<AddPatient />} />
-        <Route path="/profile" element={<Profile />} />
+      {/* Protected routes for Admin */}
+      <Route path="/admin" element={<ProtectedRoute />}>
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="patients" element={<PatientList />} />
+        <Route path="add" element={<AddPatient />} />
+        <Route path="profile" element={<Profile />} />
       </Route>
+
+      {/* Protected routes for Doctor */}
+      <Route path="/doctor" element={<ProtectedRoute />}></Route>
+
+      {/* Protected routes for Patients */}
+      <Route path="/user" element={<ProtectedRoute />}></Route>
     </Routes>
   );
 };

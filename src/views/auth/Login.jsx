@@ -1,4 +1,5 @@
 import { useAuthStore } from "../../stores/authStore";
+import { redirectByRole } from "../../utils/redirectByRole";
 import InputField from "../../components/commons/InputField";
 import Modal from "../../components/commons/Modal";
 import { useState, useRef, useEffect } from "react";
@@ -6,31 +7,36 @@ import { Link, useNavigate } from "react-router";
 import { loginInputs } from "../../lib/data";
 
 const Login = () => {
-  const login = useAuthStore((state) => state.login);
-  const modalRef = useRef(null);
-  const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const login = useAuthStore((state) => state.login); // get the login method from the store
+  const modalRef = useRef(null); // Ref for the modal
+  const navigate = useNavigate(); // For navigation after login
+  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+  const [loading, setLoading] = useState(false); // Loading state for the form submission
   const [modalData, setModalData] = useState({
+    // State for modal content
     isOpen: false,
     type: "",
     message: "",
   });
   const [formData, setFormData] = useState({
+    // State for form inputs
     email: "",
     password: "",
   });
 
+  // Effect to open modal when modalData.isOpen changes
   useEffect(() => {
     if (modalData.isOpen) {
       modalRef.current?.showModal();
     }
   }, [modalData.isOpen]);
 
+  // Handle form submission
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent default form submission
     setLoading(true);
-    const { email, password } = formData;
+    const { email, password } = formData; // Destructure email and password from formData
+    // Call the login method from the store
     try {
       await login(email, password);
       setModalData({
@@ -39,6 +45,7 @@ const Login = () => {
         message: "Login Successfully!",
       });
     } catch (error) {
+      // Handle login errors
       setModalData({
         isOpen: true,
         type: "error",
@@ -49,18 +56,20 @@ const Login = () => {
     }
   };
 
+  // Handle input changes
   const handleChange = (e) => {
-    const { id, value } = e.target;
-    setFormData({ ...formData, [id]: value });
+    const { id, value } = e.target; // Destructure id and value from the event target
+    setFormData({ ...formData, [id]: value }); // Update the corresponding field in formData
   };
 
   return (
     <div>
       <div className="mb-6 text-center">
-        <h2 className="text-2xl font-bold">Welcome Back</h2>
+        <h2 className="text-2xl font-bold">Welcome!</h2>
         <p className="text-gray-600">Sign in your personal account</p>
       </div>
 
+      {/* Login form  */}
       <form onSubmit={handleSubmit} className="space-y-4">
         {loginInputs.map((field) => (
           <InputField
@@ -96,15 +105,14 @@ const Login = () => {
         </button>
       </form>
 
+      {/* Forgot password link */}
       <div className="mt-5 flex justify-center text-sm">
-        <Link
-          to="/auth/forgot-password"
-          className="text-blue-600 hover:underline"
-        >
+        <Link to="/forgot-password" className="text-blue-600 hover:underline">
           Forgot password?
         </Link>
       </div>
 
+      {/* Modal for displaying success or error messages */}
       {modalData.isOpen && (
         <Modal
           ref={modalRef}
@@ -119,7 +127,7 @@ const Login = () => {
           onConfirm={() => {
             setModalData({ ...modalData, isOpen: false });
             if (modalData.type === "success") {
-              navigate("/dashboard");
+              redirectByRole(navigate);
             }
           }}
         />

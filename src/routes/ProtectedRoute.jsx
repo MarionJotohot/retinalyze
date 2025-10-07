@@ -28,7 +28,7 @@ const ProtectedRoute = () => {
           continue.
         </p>
         <button
-          onClick={() => (window.location.href = "/auth/login")}
+          onClick={() => (window.location.href = "/login")}
           className="bg-blue-500 text-white py-2 px-6 rounded hover:bg-blue-600 cursor-pointer"
         >
           Go to Login

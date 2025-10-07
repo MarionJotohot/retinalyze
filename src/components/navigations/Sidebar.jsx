@@ -5,21 +5,15 @@ import { FiMenu, FiX } from "react-icons/fi";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import Modal from "../commons/Modal";
 import UserInfo from "./UserInfo";
-import { navItems } from "../../lib/data";
+import { adminNavItems } from "../../lib/data";
 
 const Sidebar = () => {
-  // Access the logout function from the store
-  const logout = useAuthStore((state) => state.logout);
-  // Ref for the modal
-  const modalRef = useRef(null);
-  // Hook for navigation
-  const navigate = useNavigate();
-  // Hook for location
-  const location = useLocation();
-  // State to manage sidebar visibility on mobile
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  // Function to toggle sidebar
-  const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
+  const logout = useAuthStore((state) => state.logout); // Access the logout function from the store
+  const modalRef = useRef(null); // Ref for the modal
+  const navigate = useNavigate(); // Hook for navigation
+  const location = useLocation(); // Hook for location
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State to manage sidebar visibility on mobile
+  const toggleSidebar = () => setIsSidebarOpen((prev) => !prev); // Function to toggle sidebar
 
   // Close sidebar on route change (for mobile)
   useEffect(() => {
@@ -29,9 +23,10 @@ const Sidebar = () => {
   // Handle logout confirmation
   const handleLogoutConfirm = async () => {
     try {
+      // Perform logout logic here
       await logout();
       if (modalRef.current?.open) modalRef.current.close();
-      navigate("/auth/login");
+      navigate("/login");
     } catch (error) {
       console.error("Logout failed:", error);
     }
@@ -39,6 +34,7 @@ const Sidebar = () => {
 
   return (
     <aside className="flex flex-col md:flex-row max-h-screen lg:fixed lg:h-screen overflow-y-auto">
+      {/* Mobile header with menu button */}
       <div className="md:hidden fixed top-0 left-0 right-0 bg-white z-40">
         <div className="flex items-center justify-between px-4 py-3">
           <button onClick={toggleSidebar} className="p-2 rounded-md">
@@ -53,6 +49,7 @@ const Sidebar = () => {
         </div>
       </div>
 
+      {/* Overlay for mobile when sidebar is open */}
       {isSidebarOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden"
@@ -60,6 +57,7 @@ const Sidebar = () => {
         />
       )}
 
+      {/* Sidebar */}
       <div
         className={`fixed md:static flex flex-col h-screen bg-white shadow-4xl w-64 z-40 transform transition-transform duration-300 ease-in-out ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
@@ -81,7 +79,8 @@ const Sidebar = () => {
         <div className="border-t mt-5 border-gray-300"></div>
         <nav className="flex-1 p-4 items-center justify-center py-4">
           <ul className="space-y-2 text-sm">
-            {navItems.map(({ label, path, icon: Icon }) => (
+            {/* Navigation items */}
+            {adminNavItems.map(({ label, path, icon: Icon }) => (
               <li key={path}>
                 <NavLink
                   to={path}
