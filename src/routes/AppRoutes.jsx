@@ -28,11 +28,12 @@ const AppRoutes = () => {
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="patients" element={<PatientList />} />
         <Route path="add" element={<AddPatient />} />
-        <Route path="profile" element={<Profile />} />
       </Route>
 
       {/* Protected routes for Doctor */}
-      <Route path="/doctor" element={<ProtectedRoute />}></Route>
+      <Route path="/doctor" element={<ProtectedRoute />}>
+        <Route path="profile" element={<Profile />} />
+      </Route>
 
       {/* Protected routes for Patients */}
       <Route path="/user" element={<ProtectedRoute />}></Route>

@@ -4,7 +4,7 @@ import InputField from "../../components/commons/InputField";
 import Modal from "../../components/commons/Modal";
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router";
-import { loginInputs } from "../../lib/data";
+import { loginInputs } from "../../lib/loginInputs";
 
 const Login = () => {
   const login = useAuthStore((state) => state.login); // get the login method from the store

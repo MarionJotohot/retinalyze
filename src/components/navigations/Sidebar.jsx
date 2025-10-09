@@ -5,15 +5,26 @@ import { FiMenu, FiX } from "react-icons/fi";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import Modal from "../commons/Modal";
 import UserInfo from "./UserInfo";
-import { adminNavItems } from "../../lib/data";
+import {
+  adminNavItems,
+  doctorsNavItems,
+  patientsNavItems,
+} from "../../lib/sidebarNavigations";
 
 const Sidebar = () => {
   const logout = useAuthStore((state) => state.logout); // Access the logout function from the store
+  const { userRole } = useAuthStore(); // Access the userRole from the store
   const modalRef = useRef(null); // Ref for the modal
   const navigate = useNavigate(); // Hook for navigation
   const location = useLocation(); // Hook for location
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State to manage sidebar visibility on mobile
   const toggleSidebar = () => setIsSidebarOpen((prev) => !prev); // Function to toggle sidebar
+  const navItems = // Determine navigation items based on user role
+    userRole === "super_admin"
+      ? adminNavItems
+      : userRole === "doctor"
+      ? doctorsNavItems
+      : patientsNavItems;
 
   // Close sidebar on route change (for mobile)
   useEffect(() => {
@@ -23,7 +34,6 @@ const Sidebar = () => {
   // Handle logout confirmation
   const handleLogoutConfirm = async () => {
     try {
-      // Perform logout logic here
       await logout();
       if (modalRef.current?.open) modalRef.current.close();
       navigate("/login");
@@ -80,7 +90,7 @@ const Sidebar = () => {
         <nav className="flex-1 p-4 items-center justify-center py-4">
           <ul className="space-y-2 text-sm">
             {/* Navigation items */}
-            {adminNavItems.map(({ label, path, icon: Icon }) => (
+            {navItems.map(({ label, path, icon: Icon }) => (
               <li key={path}>
                 <NavLink
                   to={path}

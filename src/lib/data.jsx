@@ -1,54 +1,7 @@
-import { MdOutlineAlternateEmail, MdOutlineRemoveRedEye } from "react-icons/md";
-import { TbNurse } from "react-icons/tb";
-import { FaRegUser } from "react-icons/fa";
 import { LuUsers } from "react-icons/lu";
 import { IoWarningOutline } from "react-icons/io5";
 import { IoCalendarClearOutline } from "react-icons/io5";
 import { FaArrowTrendUp } from "react-icons/fa6";
-import { BiSolidDashboard } from "react-icons/bi";
-import { FaUserDoctor } from "react-icons/fa6";
-import { MdGroupAdd } from "react-icons/md";
-import { FaUserInjured } from "react-icons/fa";
-
-export const loginInputs = [
-  {
-    label: "Email",
-    id: "email",
-    type: "email",
-    placeholder: "sample@gmail.com",
-    icon: MdOutlineAlternateEmail,
-  },
-  {
-    label: "Password",
-    id: "password",
-    type: "password",
-    placeholder: "Enter your password",
-    icon: MdOutlineRemoveRedEye,
-  },
-];
-
-export const adminNavItems = [
-  {
-    label: "Dashboard",
-    path: "/admin/dashboard",
-    icon: BiSolidDashboard,
-  },
-  {
-    label: "Add Patient",
-    path: "/admin/add",
-    icon: MdGroupAdd,
-  },
-  {
-    label: "Patient List",
-    path: "/admin/patients",
-    icon: FaUserInjured,
-  },
-  {
-    label: "Profile",
-    path: "/admin/profile",
-    icon: FaUserDoctor,
-  },
-];
 
 export const cards = [
   {
