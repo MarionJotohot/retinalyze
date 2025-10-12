@@ -3,6 +3,7 @@ import { Outlet } from "react-router";
 
 const AuthLayout = () => {
   return (
+    // Fullscreen layout with background image and centered card
     <div
       className="min-h-screen flex items-center justify-center p-2"
       style={{

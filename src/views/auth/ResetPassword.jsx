@@ -1,6 +1,6 @@
 import { useAuthStore } from "../../stores/authStore";
 import { useState, useEffect } from "react";
-import { supabase } from "../../api/SupabaseClient";
+import { supabase } from "../../api/supabaseClient";
 import { useNavigate } from "react-router";
 
 const ResetPassword = () => {

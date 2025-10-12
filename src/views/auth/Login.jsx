@@ -36,8 +36,8 @@ const Login = () => {
     e.preventDefault(); // Prevent default form submission
     setLoading(true);
     const { email, password } = formData; // Destructure email and password from formData
-    // Call the login method from the store
     try {
+      // Call the login method from the store
       await login(email, password);
       setModalData({
         isOpen: true,

@@ -5,6 +5,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
 import ResultModal from "../../components/commons/ResultModal";
 import { useState, useRef } from "react";
+import { riskLevelStyles } from "../../utils/riskLevelStyles";
 import { patients } from "../../lib/data";
 
 const PatientList = () => {
@@ -21,12 +22,6 @@ const PatientList = () => {
     const matchesRisk = riskFilter === "" || p.riskLevel === riskFilter;
     return matchesNameOrAge && matchesRisk;
   });
-
-  const riskLevelStyles = {
-    High: "bg-red-100 text-red-600",
-    Moderate: "bg-yellow-100 text-yellow-700",
-    Low: "bg-green-200 text-green-700",
-  };
 
   return (
     <>
