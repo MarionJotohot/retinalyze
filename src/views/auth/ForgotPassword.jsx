@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { supabase } from "../../api/SupabaseClient";
+import { supabase } from "../../api/supabaseClient";
 import { Link } from "react-router";
 
 const ForgotPassword = () => {
