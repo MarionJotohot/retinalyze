@@ -1,6 +1,6 @@
-import { supabase } from "../api/SupabaseClient";
+import { supabase } from "../api/supabaseClient";
 
-// Create a new doctor account
+// Handles creation of a doctor + linked profile records
 export const createDoctorAccount = async (email, password, doctorData) => {
   // Create user in Supabase Auth
   const { data, error } = await supabase.auth.admin.createUser({
@@ -11,20 +11,28 @@ export const createDoctorAccount = async (email, password, doctorData) => {
 
   if (error) throw error;
 
-  // Insert into profiles and doctors tables
-  await supabase.from("profiles").insert({
+  // Insert into profiles tables
+  const { error: profileError } = await supabase.from("profiles").insert({
     user_id: data.user.id,
     role: "doctor",
     full_name: doctorData.full_name,
-    // ... other fields
+    address: doctorData.address,
+    phone_number: doctorData.phone_number,
   });
 
+  if (profileError) throw profileError;
+
   // Insert into doctors table
-  await supabase.from("doctors").insert({
+  const { error: doctorError } = await supabase.from("doctors").insert({
     user_id: data.user.id,
     specialization: doctorData.specialization,
-    // ... other fields
+    license_number: doctorData.license_number,
+    clinic_name: doctorData.clinic_name,
+    professional_title: doctorData.professional_title,
+    years_experience: doctorData.years_experience,
   });
+
+  if (doctorError) throw doctorError;
 
   return data;
 };

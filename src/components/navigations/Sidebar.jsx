@@ -52,8 +52,8 @@ const Sidebar = () => {
           </button>
           <div className="text-xl font-bold">Retinalyze.ai</div>
           <img
-            src="https://placehold.co/400"
-            alt="User"
+            src="/logo.jpg"
+            alt="logo"
             className="w-8 h-8 rounded-full border-2 border-gray-600"
           />
         </div>
@@ -73,19 +73,22 @@ const Sidebar = () => {
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } top-0 left-0 md:translate-x-0 md:w-64`}
       >
-        <div className="flex items-center justify-center gap-3 mt-5">
-          <img
-            src="https://placehold.co/400"
-            alt=""
-            className="h-12 w-12 object-contain rounded-full hidden md:block"
-          />
-          <h1 className="text-2xl font-extrabold">
+        <div className="flex items-center justify-center gap-3 mt-5 px-4">
+          <div className="flex items-center justify-center rounded-full shadow-md">
+            <img
+              src="/logo.jpg"
+              alt="Retinalyze.ai logo"
+              className="h-10 w-10 object-cover rounded-full"
+            />
+          </div>
+          <h1 className="text-xl font-extrabold leading-tight">
             Retinalyze.ai
             <span className="block font-normal text-xs text-gray-600">
               Early Stroke Risk Detection
             </span>
           </h1>
         </div>
+
         <div className="border-t mt-5 border-gray-300"></div>
         <nav className="flex-1 p-4 items-center justify-center py-4">
           <ul className="space-y-2 text-sm">

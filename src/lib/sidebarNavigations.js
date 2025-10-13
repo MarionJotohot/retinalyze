@@ -11,13 +11,8 @@ export const adminNavItems = [
     icon: BiSolidDashboard,
   },
   {
-    label: "Add Patient",
-    path: "/admin/add",
-    icon: MdGroupAdd,
-  },
-  {
     label: "Add Doctor",
-    path: "/admin/add-doctor",
+    path: "/admin/add",
     icon: MdGroupAdd,
   },
 ];
@@ -26,22 +21,22 @@ export const adminNavItems = [
 export const doctorsNavItems = [
   {
     label: "Dashboard",
-    path: "/doctor/dashboard",
+    path: "/dashboard",
     icon: BiSolidDashboard,
   },
   {
     label: "Add Patient",
-    path: "/doctor/add",
+    path: "/add",
     icon: MdGroupAdd,
   },
   {
     label: "Patient List",
-    path: "/doctor/patients",
+    path: "/patients",
     icon: FaUserInjured,
   },
   {
     label: "Profile",
-    path: "/doctor/profile",
+    path: "/profile",
     icon: FaUserDoctor,
   },
 ];

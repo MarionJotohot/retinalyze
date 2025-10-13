@@ -1,6 +1,6 @@
-import ResultModal from "../../components/commons/ResultModal";
+import ResultModal from "../../../components/commons/ResultModal";
 import { useRef, useState } from "react";
-import { patients } from "../../lib/data";
+import { patients } from "../../../lib/data";
 
 const PatientActivity = () => {
   const [selectedPatient, setSelectedPatient] = useState(null);

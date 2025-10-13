@@ -9,6 +9,7 @@ import Dashboard from "../views/dashboard/Dashboard";
 import PatientList from "../views/patient/PatientList";
 import AddPatient from "../views/patient/AddPatient";
 import Profile from "../views/profile/Profile";
+import AddDoctor from "../views/admin/AddDoctor";
 
 const AppRoutes = () => {
   return (
@@ -26,13 +27,15 @@ const AppRoutes = () => {
       {/* Protected routes for Admin */}
       <Route path="/admin" element={<ProtectedRoute />}>
         <Route path="dashboard" element={<Dashboard />} />
-        <Route path="patients" element={<PatientList />} />
-        <Route path="add" element={<AddPatient />} />
+        <Route path="add" element={<AddDoctor />} />
       </Route>
 
       {/* Protected routes for Doctor */}
-      <Route path="/doctor" element={<ProtectedRoute />}>
-        <Route path="profile" element={<Profile />} />
+      <Route element={<ProtectedRoute />}>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/patients" element={<PatientList />} />
+        <Route path="/add" element={<AddPatient />} />
+        <Route path="/profile" element={<Profile />} />
       </Route>
 
       {/* Protected routes for Patients */}
