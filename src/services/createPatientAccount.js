@@ -1,4 +1,4 @@
-import { supabase } from "../api/SupabaseClient";
+import { supabase } from "../api/supabaseClient";
 
 // Create a new patient account and link to a doctor
 export const createPatientAccount = async (

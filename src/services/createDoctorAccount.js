@@ -1,38 +1,42 @@
 import { supabase } from "../api/supabaseClient";
 
-// Handles creation of a doctor + linked profile records
+// Creates a doctor account by calling the Supabase Edge Function
 export const createDoctorAccount = async (email, password, doctorData) => {
-  // Create user in Supabase Auth
-  const { data, error } = await supabase.auth.admin.createUser({
-    email,
-    password,
-    email_confirm: true,
+  // Get the current session to send the auth token
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  // Ensure the user is authenticated
+  if (!session) {
+    throw new Error("You must be logged in to create a doctor account");
+  }
+
+  // Get the access token from the session
+  const accessToken = session.access_token;
+
+  // Call the Edge Function
+  const { data, error } = await supabase.functions.invoke("addDoctorAccount", {
+    body: {
+      email,
+      password,
+      doctorData,
+    },
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
   });
 
-  if (error) throw error;
+  // Handle any errors from the function call
+  if (error) {
+    throw new Error(error.message || "Failed to create doctor account");
+  }
 
-  // Insert into profiles tables
-  const { error: profileError } = await supabase.from("profiles").insert({
-    user_id: data.user.id,
-    role: "doctor",
-    full_name: doctorData.full_name,
-    address: doctorData.address,
-    phone_number: doctorData.phone_number,
-  });
+  // Handle any errors returned in the data
+  if (data?.error) {
+    throw new Error(data.error);
+  }
 
-  if (profileError) throw profileError;
-
-  // Insert into doctors table
-  const { error: doctorError } = await supabase.from("doctors").insert({
-    user_id: data.user.id,
-    specialization: doctorData.specialization,
-    license_number: doctorData.license_number,
-    clinic_name: doctorData.clinic_name,
-    professional_title: doctorData.professional_title,
-    years_experience: doctorData.years_experience,
-  });
-
-  if (doctorError) throw doctorError;
-
+  // Return the created doctor's data
   return data;
 };

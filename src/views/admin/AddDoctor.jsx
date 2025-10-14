@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { FaUserPlus } from "react-icons/fa";
 import Sidebar from "../../components/navigations/Sidebar";
 import { createDoctorAccount } from "../../services/createDoctorAccount";
 
