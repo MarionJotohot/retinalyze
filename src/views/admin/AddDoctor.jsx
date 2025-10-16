@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Sidebar from "../../components/navigations/Sidebar";
-import { createDoctorAccount } from "../../services/createDoctorAccount";
+import { createDoctorAccount } from "../../services/createDoctor";
 
 const AddDoctor = () => {
   const [formData, setFormData] = useState({
