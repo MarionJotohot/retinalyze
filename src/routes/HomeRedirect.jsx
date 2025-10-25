@@ -22,6 +22,17 @@ const HomeRedirect = () => {
     }
   }, [isLoading, user]);
 
+  // Redirects *after* render
+  useEffect(() => {
+    if (!isLoading) {
+      if (!user) {
+        navigate("/login");
+      } else {
+        redirectByRole(navigate);
+      }
+    }
+  }, [isLoading, user, navigate]);
+
   // Show loading spinner and message while checking authentication status
   if (isLoading)
     return (
@@ -33,7 +44,8 @@ const HomeRedirect = () => {
       </div>
     );
 
-  return user ? redirectByRole(navigate) : navigate("/login");
+  // Render nothing while redirecting
+  return null;
 };
 
 export default HomeRedirect;

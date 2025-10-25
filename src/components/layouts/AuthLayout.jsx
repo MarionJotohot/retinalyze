@@ -3,7 +3,6 @@ import { Outlet } from "react-router";
 
 const AuthLayout = () => {
   return (
-    // Fullscreen layout with background image and centered card
     <div
       className="min-h-screen flex items-center justify-center p-2"
       style={{
@@ -14,17 +13,17 @@ const AuthLayout = () => {
       <div className="w-full max-w-4xl bg-white rounded-2xl shadow-xl overflow-hidden">
         <div className="grid lg:grid-cols-2 h-full">
           <div className="hidden lg:flex flex-col items-center justify-center p-12 bg-blue-500 text-white">
-            <div className="w-48 h-48 rounded-full overflow-hidden mb-6 flex items-center justify-center bg-white">
+            <div className="w-48 h-48 rounded-full overflow-hidden mb-6 flex items-center justify-center bg-[#B6CAE3]">
               <img
                 src="logo.jpg"
                 alt="logo"
-                className="object-cover w-full h-full"
+                className="object-cover w-40 h-40"
               />
             </div>
 
             <h1 className="text-3xl font-bold mb-2">Retinalyze.ai</h1>
             <p className="text-center">
-              Advanced Retinal Analysis for Stroke Risk Detection
+              AI-Powered Retinal Scanning and Stroke Risk Assessment Platform
             </p>
             <div className="mt-5 space-y-3 text-sm">
               <div className="flex items-center space-x-2">

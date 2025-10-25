@@ -82,7 +82,7 @@ const AddDoctor = () => {
               <ul className="text-sm text-gray-700 space-y-2">
                 <li>• Email and password create the login credentials.</li>
                 <li>• Profile details are saved in the database.</li>
-                <li>• The doctor’s specialization links to their profile.</li>
+                <li>• The doctor's specialization links to their profile.</li>
               </ul>
             </div>
 

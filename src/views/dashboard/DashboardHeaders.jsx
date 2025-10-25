@@ -14,7 +14,9 @@ const DashboardHeader = ({ name, role }) => {
         </span>
       </h1>
 
+      {/* Action buttons based on role */}
       <div className="flex justify-around sm:justify-start gap-2 mt-1">
+        {/* Buttons for doctors */}
         {isDoctor && (
           <>
             <Link to="/add">
@@ -29,7 +31,7 @@ const DashboardHeader = ({ name, role }) => {
             </Link>
           </>
         )}
-
+        {/* Buttons for super admins */}
         {isSuperAdmin && (
           <>
             <Link to="/admin/add">
@@ -37,11 +39,6 @@ const DashboardHeader = ({ name, role }) => {
                 + Add Doctor
               </button>
             </Link>
-            {/* <Link to="/doctors">
-              <button className="btn bg-white rounded-lg border-none shadow-md">
-                View All Doctors
-              </button>
-            </Link> */}
           </>
         )}
       </div>

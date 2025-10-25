@@ -10,7 +10,6 @@ const Dashboard = () => {
 
   if (isLoading) return <p>Loading dashboard...</p>;
   if (!userRole) return <div>No role found</div>;
-  console.log("Dashboard role:", userRole);
 
   return (
     <>

@@ -37,13 +37,8 @@ const Login = () => {
     setLoading(true);
     const { email, password } = formData; // Destructure email and password from formData
     try {
-      // Call the login method from the store
-      await login(email, password);
-      setModalData({
-        isOpen: true,
-        type: "success",
-        message: "Login Successfully!",
-      });
+      await login(email, password); // Call the login method from the store
+      redirectByRole(navigate); // On successful login, redirect based on user role
     } catch (error) {
       // Handle login errors
       setModalData({
@@ -112,7 +107,7 @@ const Login = () => {
         </Link>
       </div>
 
-      {/* Modal for displaying success or error messages */}
+      {/* Modal for displaying error messages */}
       {modalData.isOpen && (
         <Modal
           ref={modalRef}
@@ -126,9 +121,6 @@ const Login = () => {
           }
           onConfirm={() => {
             setModalData({ ...modalData, isOpen: false });
-            if (modalData.type === "success") {
-              redirectByRole(navigate);
-            }
           }}
         />
       )}

@@ -6,9 +6,9 @@ export const redirectByRole = (navigate) => {
   if (isSuperAdmin()) {
     navigate("/admin/dashboard");
   } else if (isDoctor()) {
-    navigate("/doctor/dashboard");
+    navigate("/dashboard");
   } else if (isPatient()) {
-    navigate("/patient/dashboard");
+    navigate("/user");
   } else {
     navigate("/");
   }

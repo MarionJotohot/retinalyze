@@ -10,6 +10,8 @@ export const createDoctorAccount = async (email, password, doctorData) => {
   // Ensure the user is authenticated
   if (!session) {
     throw new Error("You must be logged in to create a doctor account");
+  } else {
+    console.log("Authenticated user:", session.user);
   }
 
   // Get the access token from the session

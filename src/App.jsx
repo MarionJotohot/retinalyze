@@ -1,5 +1,4 @@
 import AppRoutes from "./routes/AppRoutes";
-import { BrowserRouter } from "react-router";
 import { useAuthStore } from "./stores/authStore";
 import { useEffect } from "react";
 
@@ -11,11 +10,7 @@ const App = () => {
   useEffect(() => {
     initialize();
   }, [initialize]);
-  return (
-    <BrowserRouter>
-      <AppRoutes />
-    </BrowserRouter>
-  );
+  return <AppRoutes />;
 };
 
 export default App;

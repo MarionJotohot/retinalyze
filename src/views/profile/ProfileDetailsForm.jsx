@@ -1,7 +1,14 @@
 import { useAuthStore } from "../../stores/authStore";
+import { useDoctorStore } from "../../stores/useDoctorStore";
+import { useEffect } from "react";
 
 const ProfileDetailsForm = () => {
   const { profile, user } = useAuthStore(); // Access the store authStore
+  const { doctors, fetchDoctors } = useDoctorStore(); // Access the store doctorStore
+
+  useEffect(() => {
+    fetchDoctors();
+  }, [fetchDoctors]);
 
   return (
     <div className="lg:col-span-2 space-y-6">
@@ -59,6 +66,7 @@ const ProfileDetailsForm = () => {
               <input
                 id="title"
                 placeholder="Ophthalmologist, PhD"
+                value={doctors?.professional_title || "No title"}
                 className="w-full border rounded-md p-2"
                 disabled
               />
@@ -82,6 +90,7 @@ const ProfileDetailsForm = () => {
               <input
                 id="license"
                 placeholder="MD-12345-PH"
+                value={doctors?.license_number || "No license number"}
                 className="w-full border rounded-md p-2"
                 disabled
               />
@@ -93,6 +102,7 @@ const ProfileDetailsForm = () => {
               <input
                 id="hospital"
                 placeholder="Manila General Hospital"
+                value={doctors?.clinic_name || "No hospital name"}
                 className="w-full border rounded-md p-2"
                 disabled
               />
@@ -105,6 +115,7 @@ const ProfileDetailsForm = () => {
             <input
               id="specialization"
               placeholder="Retinal Diseases, Diabetic Retinopathy"
+              value={doctors?.specialization || "No specialization"}
               className="w-full border rounded-md p-2"
               disabled
             />
@@ -116,6 +127,7 @@ const ProfileDetailsForm = () => {
             <input
               id="experience"
               placeholder="15 years"
+              value={doctors?.years_experience || "No experience data"}
               className="w-full border rounded-md p-2"
               disabled
             />

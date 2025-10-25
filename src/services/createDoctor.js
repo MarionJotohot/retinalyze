@@ -1,16 +1,19 @@
 import { supabase } from "../api/supabaseClient";
 
-// Handles creation of a doctor + linked profile records using Edge Function
+// Function to create a new doctor account via Supabase Edge Function
 export const createDoctorAccount = async (email, password, doctorData) => {
-  const { data, error } = await supabase.functions.invoke('addDoctorTrial', {
-    body: {
+  const { data, error } = await supabase.functions.invoke("addDoctorAccount", {
+    body: JSON.stringify({
       email,
       password,
-      doctorData
-    }
+      doctorData,
+    }),
   });
 
-  if (error) throw error;
+  if (error) {
+    console.error("Error details:", error);
+    throw error;
+  }
 
   return data;
 };

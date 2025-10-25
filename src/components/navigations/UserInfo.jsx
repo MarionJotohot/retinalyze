@@ -3,12 +3,10 @@ import { useAuthStore } from "../../stores/authStore";
 const UserInfo = () => {
   const { user, profile, isLoading } = useAuthStore(); // Access user, profile, and loading state
 
-  // Handle loading and no user states
   if (isLoading) {
     return <p className="p-4 text-sm text-gray-500">Loading...</p>;
   }
 
-  // If no user is logged in
   if (!user) {
     return <p className="p-4 text-sm text-gray-500">No user logged in</p>;
   }

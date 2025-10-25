@@ -4,7 +4,7 @@ import { FaUserInjured } from "react-icons/fa";
 import { LuScanEye } from "react-icons/lu";
 import { useState } from "react";
 import InputField from "../../components/commons/InputField";
-import { addPatientInputs } from "../../lib/data";
+import { addPatientInputs } from "../../lib/addPatientInputs";
 
 const AddPatient = () => {
   const [formData, setFormData] = useState({
@@ -39,6 +39,7 @@ const AddPatient = () => {
           </h1>
           <div className="mt-6 space-y-6">
             <div className="card bg-white shadow-md rounded-md p-3">
+              {/* Patient Information Section */}
               <div className="card-body space-y-4">
                 <div className="flex gap-3">
                   <FaUserInjured size={20} className="mt-1" />
@@ -60,6 +61,8 @@ const AddPatient = () => {
                   ))}
                 </div>
               </div>
+
+              {/* Retinal Image Upload Section */}
               <div className="card-body">
                 <div className="flex gap-3">
                   <LuScanEye className="mt-1" size={22} />
