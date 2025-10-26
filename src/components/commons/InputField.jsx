@@ -1,3 +1,4 @@
+// custom InputField component supporting text input, select dropdown, and optional icon
 const InputField = ({
   label,
   id,
@@ -10,10 +11,12 @@ const InputField = ({
   options = [],
 }) => (
   <div>
+    {/* Label for the input field */}
     <label htmlFor={id} className="block text-sm font-medium text-gray-700">
       {label}
     </label>
     <div className="relative flex items-center">
+      {/* Render select dropdown if type is "select", otherwise render input field */}
       {type === "select" ? (
         <select
           id={id}
@@ -40,6 +43,8 @@ const InputField = ({
           className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       )}
+
+      {/* Render icon if provided and type is not "select" */}
       {Icon && type !== "select" && (
         <Icon
           className="w-[18px] h-[18px] absolute right-4 text-gray-400"

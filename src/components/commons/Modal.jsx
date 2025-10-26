@@ -1,5 +1,6 @@
 import { forwardRef } from "react";
 
+// Modal component using forwardRef to allow parent components to control its visibility
 const Modal = forwardRef(
   ({ title, message, confirmLabel, onConfirm, color }, ref) => {
     return (

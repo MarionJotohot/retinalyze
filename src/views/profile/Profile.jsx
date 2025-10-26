@@ -3,6 +3,7 @@ import { FaEdit } from "react-icons/fa";
 import ProfileSidebarCard from "./ProfileSidebarCard";
 import ProfileDetailsForm from "./ProfileDetailsForm";
 
+// Profile Settings Page
 const Profile = () => {
   return (
     <>

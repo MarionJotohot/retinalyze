@@ -1,9 +1,12 @@
-import { cards } from "../../../lib/data";
+import { cards } from "../../../lib/dashboardCardData";
 
+// Dashboard card component
 const DashCard = () => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-5 tracking-widest">
+      {/* Render each card */}
       {cards.map((card) => {
+        // Get the icon component
         const Icon = card.icon;
         return (
           <div key={card.id} className="card shadow-md bg-white rounded-lg">

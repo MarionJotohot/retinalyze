@@ -88,7 +88,6 @@ const Sidebar = () => {
             </span>
           </h1>
         </div>
-
         <div className="border-t mt-5 border-gray-300"></div>
         <nav className="flex-1 p-4 items-center justify-center py-4">
           <ul className="space-y-2 text-sm">
@@ -126,6 +125,7 @@ const Sidebar = () => {
         <UserInfo />
       </div>
 
+      {/* Logout confirmation modal */}
       <Modal
         ref={modalRef}
         title="Confirm Logout"

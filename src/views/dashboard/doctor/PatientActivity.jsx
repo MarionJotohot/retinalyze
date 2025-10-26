@@ -1,16 +1,14 @@
 import ResultModal from "../../../components/commons/ResultModal";
+import { riskLevelStyles } from "../../../utils/riskLevelStyles";
 import { useRef, useState } from "react";
 import { patients } from "../../../lib/data";
 
+// Component to display recent patient activities
 const PatientActivity = () => {
+  // State to manage the selected patient for the modal
   const [selectedPatient, setSelectedPatient] = useState(null);
+  // Ref for the ResultModal component
   const modalRef = useRef(null);
-
-  const riskLevelStyles = {
-    High: "bg-red-200 text-red-600",
-    Moderate: "bg-yellow-200 text-yellow-700",
-    Low: "bg-green-300 text-green-700",
-  };
 
   return (
     <div className="bg-white p-4 sm:p-6 mt-8 rounded-lg shadow-md">
@@ -22,6 +20,8 @@ const PatientActivity = () => {
           Latest patient analyses and results
         </p>
       </div>
+
+      {/* Patient List */}
       <div className="space-y-4">
         {patients
           .sort((a, b) => new Date(b.lastCheckup) - new Date(a.lastCheckup))
@@ -73,6 +73,7 @@ const PatientActivity = () => {
           ))}
       </div>
 
+      {/* Result Modal */}
       <ResultModal
         ref={modalRef}
         patient={selectedPatient}

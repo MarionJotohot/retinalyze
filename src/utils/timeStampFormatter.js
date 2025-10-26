@@ -1,3 +1,4 @@
+// custom utility to format timestamps into human-readable date strings
 export const timeStampFormatter = (
   timestamp,
   locale = "en-US",

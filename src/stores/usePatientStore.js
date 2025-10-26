@@ -12,10 +12,10 @@ export const usePatientStore = create((set, get) => ({
 
   // Fetch doctors from Supabase
   fetchPatients: async (isNextPage = false) => {
-    const { page, pageSize, patients } = get();
-    const nextPage = isNextPage ? page + 1 : 0;
-    const from = nextPage * pageSize;
-    const to = from + pageSize - 1;
+    const { page, pageSize, patients } = get(); // get current state
+    const nextPage = isNextPage ? page + 1 : 0; // determine next page index
+    const from = nextPage * pageSize; // calculate range start
+    const to = from + pageSize - 1; // calculate range end
 
     // Reset error before fetching
     set({ isLoading: true, error: null });

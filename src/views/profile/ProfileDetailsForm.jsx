@@ -2,10 +2,12 @@ import { useAuthStore } from "../../stores/authStore";
 import { useDoctorStore } from "../../stores/useDoctorStore";
 import { useEffect } from "react";
 
+// Profile Details Form Component
 const ProfileDetailsForm = () => {
   const { profile, user } = useAuthStore(); // Access the store authStore
   const { doctors, fetchDoctors } = useDoctorStore(); // Access the store doctorStore
 
+  // Fetch doctors data on component mount
   useEffect(() => {
     fetchDoctors();
   }, [fetchDoctors]);
@@ -19,6 +21,8 @@ const ProfileDetailsForm = () => {
             Update your personal details and contact information
           </p>
         </div>
+
+        {/* Personal Information Form */}
         <div className="p-6 space-y-4">
           <div className="space-y-2">
             <label className="text-sm font-medium" htmlFor="email">
@@ -74,6 +78,8 @@ const ProfileDetailsForm = () => {
           </div>
         </div>
       </div>
+
+      {/* Professional Information Form */}
       <div className="bg-white shadow rounded-lg">
         <div className="p-6 border-b">
           <h3 className="text-lg font-semibold">Professional Information</h3>

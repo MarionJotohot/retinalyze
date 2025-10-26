@@ -2,6 +2,7 @@ import AppRoutes from "./routes/AppRoutes";
 import { useAuthStore } from "./stores/authStore";
 import { useEffect } from "react";
 
+// Main application component
 const App = () => {
   // Access the initialize function from the auth store
   const initialize = useAuthStore((state) => state.initialize);

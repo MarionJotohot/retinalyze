@@ -1,6 +1,7 @@
 import bgImage from "../../assets/images/background-image.jpg";
 import { Outlet } from "react-router";
 
+// Layout for authentication pages (Login, Forgot Password, Reset Password)
 const AuthLayout = () => {
   return (
     <div

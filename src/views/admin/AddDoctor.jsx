@@ -2,7 +2,9 @@ import { useState } from "react";
 import Sidebar from "../../components/navigations/Sidebar";
 import { createDoctorAccount } from "../../services/createDoctor";
 
+// Component for adding a new doctor account
 const AddDoctor = () => {
+  // Form state
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -16,23 +18,30 @@ const AddDoctor = () => {
     years_experience: "",
   });
 
+  // Loading and message state
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
+  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setMessage("");
-    setLoading(true);
-
+    e.preventDefault(); // Prevent default form submission
+    setMessage(""); // Clear previous messages
+    setLoading(true); // Set loading state
+  
     try {
+      // Destructure email and password from formData
       const { email, password, ...doctorData } = formData;
+      // Call service to create doctor account
       await createDoctorAccount(email, password, doctorData);
+      // On success, show success message and reset form
       setMessage("Doctor account successfully created!");
+      // Reset form data
       setFormData({
         email: "",
         password: "",
@@ -162,14 +171,14 @@ const AddDoctor = () => {
                   />
                 </div>
 
-                {/* Clinic & Title */}
+                {/* Experience & Title */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <input
-                    type="text"
-                    name="clinic_name"
-                    placeholder="Clinic Name"
+                    type="number"
+                    name="years_experience"
+                    placeholder="Years of Experience"
                     className="input w-full rounded-md border-none"
-                    value={formData.clinic_name}
+                    value={formData.years_experience}
                     onChange={handleChange}
                   />
                   <input
@@ -182,15 +191,15 @@ const AddDoctor = () => {
                   />
                 </div>
 
-                {/* Experience */}
-                <input
-                  type="number"
-                  name="years_experience"
-                  placeholder="Years of Experience"
-                  className="input w-full rounded-md border-none"
-                  value={formData.years_experience}
-                  onChange={handleChange}
-                />
+                {/* Clinic */}
+                 <input
+                    type="text"
+                    name="clinic_name"
+                    placeholder="Clinic Name"
+                    className="input w-full rounded-md border-none"
+                    value={formData.clinic_name}
+                    onChange={handleChange}
+                  />
 
                 {/* Message */}
                 {message && (

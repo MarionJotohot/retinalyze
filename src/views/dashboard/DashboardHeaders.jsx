@@ -1,6 +1,8 @@
 import { Link } from "react-router";
 
+// Dashboard header component with role-based content
 const DashboardHeader = ({ name, role }) => {
+  // Determine role flags
   const isSuperAdmin = role === "super_admin";
   const isDoctor = role === "doctor";
 
@@ -31,6 +33,7 @@ const DashboardHeader = ({ name, role }) => {
             </Link>
           </>
         )}
+        
         {/* Buttons for super admins */}
         {isSuperAdmin && (
           <>

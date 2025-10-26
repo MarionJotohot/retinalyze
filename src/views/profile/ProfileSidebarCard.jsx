@@ -2,6 +2,7 @@ import { useAuthStore } from "../../stores/authStore";
 import { FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
 import { timeStampFormatter } from "../../utils/timeStampFormatter";
 
+// Profile Sidebar Card Component
 const ProfileSidebarCard = () => {
   const { profile, user } = useAuthStore(); // Access the store authStore
 

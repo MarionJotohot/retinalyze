@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 const HomeRedirect = () => {
   const { user, isLoading } = useAuthStore(); // Access user and loading state from the auth store
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Hook for programmatic navigation
   const [loadingMessage, setLoadingMessage] = useState(
     // Initial loading message
     "Checking your session..."
