@@ -5,12 +5,12 @@ import { useEffect } from "react";
 // Profile Details Form Component
 const ProfileDetailsForm = () => {
   const { profile, user } = useAuthStore(); // Access the store authStore
-  const { doctors, fetchDoctors } = useDoctorStore(); // Access the store doctorStore
+  const { doctor, fetchDoctor } = useDoctorStore(); // Access the store doctorStore
 
   // Fetch doctors data on component mount
   useEffect(() => {
-    fetchDoctors();
-  }, [fetchDoctors]);
+    fetchDoctor();
+  }, [fetchDoctor]);
 
   return (
     <div className="lg:col-span-2 space-y-6">
@@ -70,7 +70,7 @@ const ProfileDetailsForm = () => {
               <input
                 id="title"
                 placeholder="Ophthalmologist, PhD"
-                value={doctors?.professional_title || "No title"}
+                value={doctor?.professional_title || "No title"}
                 className="w-full border rounded-md p-2"
                 disabled
               />
@@ -96,7 +96,7 @@ const ProfileDetailsForm = () => {
               <input
                 id="license"
                 placeholder="MD-12345-PH"
-                value={doctors?.license_number || "No license number"}
+                value={doctor?.license_number || "No license number"}
                 className="w-full border rounded-md p-2"
                 disabled
               />
@@ -108,7 +108,7 @@ const ProfileDetailsForm = () => {
               <input
                 id="hospital"
                 placeholder="Manila General Hospital"
-                value={doctors?.clinic_name || "No hospital name"}
+                value={doctor?.clinic_name || "No hospital name"}
                 className="w-full border rounded-md p-2"
                 disabled
               />
@@ -121,7 +121,7 @@ const ProfileDetailsForm = () => {
             <input
               id="specialization"
               placeholder="Retinal Diseases, Diabetic Retinopathy"
-              value={doctors?.specialization || "No specialization"}
+              value={doctor?.specialization || "No specialization"}
               className="w-full border rounded-md p-2"
               disabled
             />
@@ -133,7 +133,7 @@ const ProfileDetailsForm = () => {
             <input
               id="experience"
               placeholder="15 years"
-              value={doctors?.years_experience || "No experience data"}
+              value={doctor?.years_experience || "No experience data"}
               className="w-full border rounded-md p-2"
               disabled
             />

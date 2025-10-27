@@ -5,7 +5,6 @@ import { IoEyeOutline } from "react-icons/io5";
 import ResultModal from "../../../components/commons/ResultModal";
 import { useState, useRef, useEffect } from "react";
 import { usePatientStore } from "../../../stores/usePatientStore";
-import { useDoctorStore } from "../../../stores/useDoctorStore";
 import { riskLevelStyles } from "../../../utils/riskLevelStyles";
 
 const AllPatients = () => {
@@ -14,23 +13,17 @@ const AllPatients = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [riskFilter, setRiskFilter] = useState("");
   const [selectedPatient, setSelectedPatient] = useState(null);
-  const { doctors, fetchDoctors, isLoading: loadingDoctors } = useDoctorStore();
-  const {
-    patients,
-    fetchPatients,
-    isLoading: loadingPatients,
-    hasMore,
-  } = usePatientStore();
+  const patients = usePatientStore((state) => state.patients);
+  const fetchAllPatients = usePatientStore((state) => state.fetchAllPatients);
+  const loadingPatients = usePatientStore((state) => state.isLoading);
+  const hasMore = usePatientStore((state) => state.hasMore);
 
   // Initial data fetch
   useEffect(() => {
     if (patients.length === 0) {
-      fetchPatients(false);
+      fetchAllPatients(false);
     }
-    if (doctors.length === 0) {
-      fetchDoctors();
-    }
-  }, [fetchPatients, fetchDoctors, patients.length, doctors.length]);
+  }, [fetchAllPatients, patients.length]);
 
   // Observe when the sentinel div (loadMoreRef) comes into view
   useEffect(() => {
@@ -38,7 +31,7 @@ const AllPatients = () => {
       (entries) => {
         const [entry] = entries;
         if (entry.isIntersecting && hasMore && !loadingPatients) {
-          fetchPatients(true); // fetch next page
+          fetchAllPatients(true); // fetch next page
         }
       },
       { threshold: 1.0 } // trigger when fully in view
@@ -49,20 +42,14 @@ const AllPatients = () => {
     return () => {
       if (currentRef) observer.unobserve(currentRef);
     };
-  }, [hasMore, fetchPatients, loadingPatients]);
-
-  // Helper to get doctor's name by ID
-  const getDoctorName = (doctorId) => {
-    const doctor = doctors.find((d) => d.id === doctorId);
-    return doctor ? doctor.full_name : "Unassigned";
-  };
+  }, [hasMore, fetchAllPatients, loadingPatients]);
 
   // Filter patients based on search term and risk level
   const filteredPatients = patients.filter((p) => {
     const search = searchTerm.toLowerCase();
     const matchesNameOrAge =
-      p.patient.toLowerCase().includes(search) ||
-      p.age.toString().includes(search);
+      p.profile?.full_name?.toLowerCase().includes(search) ||
+      p.age?.toString().includes(search);
     const matchesRisk = riskFilter === "" || p.riskLevel === riskFilter;
     return matchesNameOrAge && matchesRisk;
   });
@@ -109,7 +96,7 @@ const AllPatients = () => {
           </thead>
           <tbody>
             {/* Initial loading state */}
-            {(loadingPatients || loadingDoctors) && patients.length === 0 && (
+            {loadingPatients && patients.length === 0 && (
               <tr>
                 <td colSpan="6" className="text-center py-6 text-gray-500">
                   Loading patients...
@@ -118,19 +105,16 @@ const AllPatients = () => {
             )}
 
             {/* Empty state */}
-            {!loadingPatients &&
-              !loadingDoctors &&
-              filteredPatients.length === 0 && (
-                <tr>
-                  <td colSpan="6" className="text-center py-6 text-gray-500">
-                    No patients found
-                  </td>
-                </tr>
-              )}
+            {!loadingPatients && filteredPatients.length === 0 && (
+              <tr>
+                <td colSpan="6" className="text-center py-6 text-gray-500">
+                  No patients found
+                </td>
+              </tr>
+            )}
 
             {/* Data rows */}
             {!loadingPatients &&
-              !loadingDoctors &&
               filteredPatients.map((patient) => (
                 <tr key={patient.id}>
                   <td>
@@ -139,7 +123,7 @@ const AllPatients = () => {
                         <div className="rounded-full h-8 w-8 sm:h-10 sm:w-10">
                           <img
                             src={
-                              patient.image ||
+                              patient.profile?.avatar_url ||
                               "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
                             }
                             alt="Avatar"
@@ -147,7 +131,7 @@ const AllPatients = () => {
                         </div>
                       </div>
                       <div className="text-sm sm:text-base">
-                        {patient.full_name || "No name provided"}
+                        {patient.profile?.full_name || "No name provided"}
                       </div>
                     </div>
                   </td>
@@ -167,7 +151,7 @@ const AllPatients = () => {
                     {patient.lastCheckup || "No checkup records"}
                   </td>
                   <td className="text-sm">
-                    {getDoctorName(patient.doctor_id)}
+                    {patient.doctor?.profile?.full_name || "Unassigned"}
                   </td>
                   <td>
                     <div className="flex items-center gap-1">
