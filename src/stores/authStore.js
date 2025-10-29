@@ -13,6 +13,13 @@ export const useAuthStore = create((set, get) => ({
   profile: null, // Additional user data
   isLoading: true, // Loading state
 
+  // Add setter for profile so components/hooks can update store
+  setProfile: (profileData) => set({ profile: profileData }),
+
+  // Optional helper to merge partial updates
+  updateProfileFields: (partial) =>
+    set((state) => ({ profile: { ...state.profile, ...partial } })),
+
   // Initialize method to fetch user and role
   initialize: async () => {
     set({ isLoading: true });

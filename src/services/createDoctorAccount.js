@@ -12,10 +12,7 @@ export const createDoctorAccount = async (email, password, doctorData) => {
   });
 
   // Handle any errors that occur during the function invocation
-  if (error) {
-    console.error("Error details:", error);
-    throw error;
-  }
+  if (error) throw error;
 
   return data;
 };

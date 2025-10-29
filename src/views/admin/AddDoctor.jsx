@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Sidebar from "../../components/navigations/Sidebar";
-import { createDoctorAccount } from "../../services/createDoctor";
+import { createDoctorAccount } from "../../services/createDoctorAccount";
+import InputField from "../../components/commons/InputField";
+import { addDoctorInputs } from "../../lib/addDoctorInputs";
 
 // Component for adding a new doctor account
 const AddDoctor = () => {
@@ -98,108 +100,16 @@ const AddDoctor = () => {
             {/* Right Form Panel */}
             <div className="lg:col-span-2 bg-white rounded-md shadow-md p-6">
               <form onSubmit={handleSubmit} className="space-y-4">
-                {/* Email & Password */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    className="input w-full rounded-md border-none"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                  />
-                  <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    className="input w-full rounded-md border-none"
-                    value={formData.password}
-                    onChange={handleChange}
-                    required
-                  />
+                  {addDoctorInputs.map((field) => (
+                    <InputField
+                      key={field.id}
+                      {...field}
+                      value={formData[field.id]}
+                      onChange={handleChange}
+                    />
+                  ))}
                 </div>
-
-                {/* Name & Phone */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <input
-                    type="text"
-                    name="full_name"
-                    placeholder="Full Name"
-                    className="input w-full rounded-md border-none"
-                    value={formData.full_name}
-                    onChange={handleChange}
-                    required
-                  />
-                  <input
-                    type="text"
-                    name="phone_number"
-                    placeholder="Phone Number"
-                    className="input w-full rounded-md border-none"
-                    value={formData.phone_number}
-                    onChange={handleChange}
-                  />
-                </div>
-
-                {/* Address */}
-                <input
-                  type="text"
-                  name="address"
-                  placeholder="Address"
-                  className="input w-full rounded-md border-none"
-                  value={formData.address}
-                  onChange={handleChange}
-                />
-
-                {/* Specialization & License */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <input
-                    type="text"
-                    name="specialization"
-                    placeholder="Specialization"
-                    className="input w-full rounded-md border-none"
-                    value={formData.specialization}
-                    onChange={handleChange}
-                  />
-                  <input
-                    type="text"
-                    name="license_number"
-                    placeholder="License Number"
-                    className="input w-full rounded-md border-none"
-                    value={formData.license_number}
-                    onChange={handleChange}
-                  />
-                </div>
-
-                {/* Experience & Title */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <input
-                    type="number"
-                    name="years_experience"
-                    placeholder="Years of Experience"
-                    className="input w-full rounded-md border-none"
-                    value={formData.years_experience}
-                    onChange={handleChange}
-                  />
-                  <input
-                    type="text"
-                    name="professional_title"
-                    placeholder="Professional Title (e.g. MD, DO)"
-                    className="input w-full rounded-md border-none"
-                    value={formData.professional_title}
-                    onChange={handleChange}
-                  />
-                </div>
-
-                {/* Clinic */}
-                 <input
-                    type="text"
-                    name="clinic_name"
-                    placeholder="Clinic Name"
-                    className="input w-full rounded-md border-none"
-                    value={formData.clinic_name}
-                    onChange={handleChange}
-                  />
 
                 {/* Message */}
                 {message && (

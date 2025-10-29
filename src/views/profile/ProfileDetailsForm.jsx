@@ -1,16 +1,14 @@
 import { useAuthStore } from "../../stores/authStore";
-import { useDoctorStore } from "../../stores/useDoctorStore";
-import { useEffect } from "react";
 
-// Profile Details Form Component
-const ProfileDetailsForm = () => {
-  const { profile, user } = useAuthStore(); // Access the store authStore
-  const { doctor, fetchDoctor } = useDoctorStore(); // Access the store doctorStore
-
-  // Fetch doctors data on component mount
-  useEffect(() => {
-    fetchDoctor();
-  }, [fetchDoctor]);
+const ProfileDetailsForm = ({ formValues, setFormValues }) => {
+  // Get current user ID from auth store
+  const user = useAuthStore((state) => state.user);
+  
+  // Handle input changes
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormValues(prev => ({ ...prev, [id]: value }));
+  };
 
   return (
     <div className="lg:col-span-2 space-y-6">
@@ -29,12 +27,12 @@ const ProfileDetailsForm = () => {
               Full Name
             </label>
             <input
-              id="fullname"
+              id="full_name"
               type="text"
               placeholder="Juan Dela Cruz"
-              value={profile?.full_name || "No name"}
+              value={formValues.full_name}
+              onChange={handleChange}
               className="w-full border rounded-md p-2"
-              disabled
             />
           </div>
           <div className="space-y-2">
@@ -45,7 +43,7 @@ const ProfileDetailsForm = () => {
               id="email"
               type="email"
               placeholder="juandelacruz@hospital.com"
-              value={user?.email || "No Email"}
+              defaultValue={user?.email}
               className="w-full border rounded-md p-2"
               disabled
             />
@@ -56,11 +54,11 @@ const ProfileDetailsForm = () => {
                 Phone Number
               </label>
               <input
-                id="phone"
+                id="phone_number"
                 placeholder="(123) 456-7890"
-                value={profile?.phone_number || "No number"}
+                value={formValues.phone_number}
+                onChange={handleChange}
                 className="w-full border rounded-md p-2"
-                disabled
               />
             </div>
             <div className="space-y-2">
@@ -68,11 +66,11 @@ const ProfileDetailsForm = () => {
                 Professional Title
               </label>
               <input
-                id="title"
+                id="professional_title"
                 placeholder="Ophthalmologist, PhD"
-                value={doctor?.professional_title || "No title"}
+                value={formValues.professional_title}
+                onChange={handleChange}
                 className="w-full border rounded-md p-2"
-                disabled
               />
             </div>
           </div>
@@ -94,11 +92,11 @@ const ProfileDetailsForm = () => {
                 Medical License Number
               </label>
               <input
-                id="license"
+                id="license_number"
                 placeholder="MD-12345-PH"
-                value={doctor?.license_number || "No license number"}
+                value={formValues.license_number}
+                onChange={handleChange}
                 className="w-full border rounded-md p-2"
-                disabled
               />
             </div>
             <div className="space-y-2">
@@ -106,11 +104,11 @@ const ProfileDetailsForm = () => {
                 Hospital/Clinic Name
               </label>
               <input
-                id="hospital"
+                id="clinic_name"
                 placeholder="Manila General Hospital"
-                value={doctor?.clinic_name || "No hospital name"}
+                value={formValues.clinic_name}
+                onChange={handleChange}
                 className="w-full border rounded-md p-2"
-                disabled
               />
             </div>
           </div>
@@ -121,9 +119,9 @@ const ProfileDetailsForm = () => {
             <input
               id="specialization"
               placeholder="Retinal Diseases, Diabetic Retinopathy"
-              value={doctor?.specialization || "No specialization"}
+              value={formValues.specialization}
+              onChange={handleChange}
               className="w-full border rounded-md p-2"
-              disabled
             />
           </div>
           <div className="space-y-2">
@@ -131,11 +129,11 @@ const ProfileDetailsForm = () => {
               Years of Experience
             </label>
             <input
-              id="experience"
+              id="years_experience"
               placeholder="15 years"
-              value={doctor?.years_experience || "No experience data"}
+              value={formValues.years_experience}
+              onChange={handleChange}
               className="w-full border rounded-md p-2"
-              disabled
             />
           </div>
         </div>

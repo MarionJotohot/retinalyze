@@ -1,9 +1,15 @@
 export const addPatientInputs = [
   {
-    label: "Full Name",
-    id: "fullName",
+    label: "Email Address",
+    id: "email",
+    type: "email",
+    placeholder: "sample@gmail.com",
+  },
+  {
+    label: "Name",
+    id: "name",
     type: "text",
-    placeholder: "Enter patient's full name",
+    placeholder: "Enter patient's name",
   },
   {
     label: "Age",
